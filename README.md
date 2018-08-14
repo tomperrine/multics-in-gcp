@@ -30,3 +30,12 @@ It requires some private data such as Google account information, hostname, etc.
 4. os-and-ansible.sh
 4.1 update the OS
 4.2 run ansible to install and configure all the needed packages
+
+
+References
+
+http://swenson.org/multics_wiki/index.php?title=Getting_Started
+https://sourceforge.net/projects/dps8m/files/
+http://swenson.org/multics_wiki/index.php?title=Main_Page
+http://ringzero.wikidot.com/start
+https://github.com/charlesUnixPro/dps8m
