@@ -1,41 +1,67 @@
 # multics-in-gcp
-build and launch Multics in Google Compute
+
+Tools to build and launch Multics in Google Compute
 
 A Project to build and launch Multics in Google Compute, using the SIMH simulator, and the Multics MR12 release.
 
-It uses Google gcloud command line SDK, SIMH, Ubuntu, etc
+These scripts use Google gcloud command line SDK, the SIMH dps8m emulator, and Ubuntu to run the Multics operating system in the cloud.
 
-It requires some private data such as Google account information, hostname, etc.
+There are two scripts, both of which depend on the environment variables
 
-0. Before you start, you need:
-0.1 Google's gcloud SDK installed
-0.2 a Google Cloud account, with active billing enabled
-0.3 a project started with the Google components activated
-0.4 SSH keys established on your local machine, and with Google
-0.5 oslogin enabled
+* launch-multics.sh - this creates the GCP instance, installs Ubuntu
+  and copies '5-minute-multics.sh' into the instance and starts it.
+
+* 5-minute-multics.sh - this script is copied into the GCP instance
+  and executed. It downloads and builds the "simh" emulator, downloads
+  the Multics disk image and configuration files
+
+# Instructions
+
+## Establish your Google cloud account and a project
+* Install the Google gcloud SDK
+* Create a Google Cloud account, with active billing enabled
+* Create a Google project started with the Google components and billing activated
+* Create (if necessary) SSH keys and install them into your Google cloud account
+* Enable oslogin for your Google cloud project
+
+## Customize your Multics installation
+
+Edit the "configure.ini" file to use your hostname, user names,
+etc. See FIXME for details. This script will be used by the emulator
+to create your Multics system.
+
+## Set your private ENVIRONMENT variables
+
+Edit the "set-private-data.sh" script to set the needed ENVIRONMENT variables
+
+### Private data - these are specific to your GCP account
+CLOUD_USERNAME - needed since we're going to use Google "OS login"
+PROJ - the name of your Google Compute project
+
+## If desired, set the tuning parameters for the instance - location, size, etc. These are in the "launch-multics.sh" script
+
+Here are the variables and the defaults:
+    CLOUDSDK_COMPUTE_ZONE="us-central1-f"
+    INSTANCENAME="my-multics"
+    MACHINETYPE="f1-micro"
+    IMAGEFAMILY="ubuntu-1804-lts"
+    IMAGEPROJECT="ubuntu-os-cloud"
+
+## GO!
+
+Run the script:
+    $ ./launch-multics.sh
+
+You will see the script create the GCP instance, install and update Ubuntu, and begin to install all the packages needed for "simh". Then it will actually install "simh", gather the Multics distibution and configuration data
 
 
 
-1. Gather private information
-1.1 CLOUD_USERNAME for oslogin
-1.2 Google Project name
-
-2. Gather "public" data - anything not sensitive
-2.1 Which Google zone to use
-2.2 instance size
-2.3 OS/image
-
-3. create-mailserver.sh - Use glcoud to create the instance
-
-4. os-and-ansible.sh
-4.1 update the OS
-4.2 run ansible to install and configure all the needed packages
 
 
-References
+# References
 
-http://swenson.org/multics_wiki/index.php?title=Getting_Started
-https://sourceforge.net/projects/dps8m/files/
-http://swenson.org/multics_wiki/index.php?title=Main_Page
-http://ringzero.wikidot.com/start
-https://github.com/charlesUnixPro/dps8m
+    http://swenson.org/multics_wiki/index.php?title=Getting_Started
+    https://sourceforge.net/projects/dps8m/files/
+    http://swenson.org/multics_wiki/index.php?title=Main_Page
+    http://ringzero.wikidot.com/start
+    https://github.com/charlesUnixPro/dps8m
