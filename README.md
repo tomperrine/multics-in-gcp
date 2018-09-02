@@ -35,12 +35,15 @@ to create your Multics system.
 Edit the "set-private-data.sh" script to set the needed ENVIRONMENT variables
 
 ### Private data - these are specific to your GCP account
-CLOUD_USERNAME - needed since we're going to use Google "OS login"
-PROJ - the name of your Google Compute project
+* CLOUD_USERNAME - needed since we're going to use Google "OS login"
+* PROJ - the name of your Google Compute project
 
-## If desired, set the tuning parameters for the instance - location, size, etc. These are in the "launch-multics.sh" script
+## Set tuning parameters
+
+If desired, set the tuning parameters for the instance - location, size, etc. These are in the "launch-multics.sh" script
 
 Here are the variables and the defaults:
+
     CLOUDSDK_COMPUTE_ZONE="us-central1-f"
     INSTANCENAME="my-multics"
     MACHINETYPE="f1-micro"
@@ -50,13 +53,28 @@ Here are the variables and the defaults:
 ## GO!
 
 Run the script:
+
     $ ./launch-multics.sh
 
-You will see the script create the GCP instance, install and update Ubuntu, and begin to install all the packages needed for "simh". Then it will actually install "simh", gather the Multics distibution and configuration data
+You will see the script create the GCP instance, install and update
+Ubuntu, and begin to install all the packages needed for "simh". Then
+it will actually install "simh", gather the Multics distibution and
+configuration data, and run Multics *twice*.
 
+Note that the system will start from the disk image provided with the
+MR12 release. This disk image has already been initialized. If you
+don't start from this image, well, you're on your own. Good luck
+building Multics from scratch.
 
+The first Multics run does a one-time configuration of the system,
+using the information you provided in config.ini. This includes the
+system name, and the first user account, which will be created as a
+privileged user in the project "SysAdmin". This all updates the disk
+image which keeps state between system boots.
 
-
+The second Multics boot uses the generic boot.init file, and depends
+on the system having been configured by the first run. This is the ini
+file to be used for all subsequent boots.
 
 # References
 

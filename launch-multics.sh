@@ -5,14 +5,7 @@
 # Pre-rews:
 # Billing
 
-
-# SET THE PRIVATE DATA
-# we're going to use "oslogin" so set a username
-CLOUD_USERNAME=tom_perrine_gmail_com
-# Set project information
-PROJ=multics-in-gcp
-gcloud config set project ${PROJ}
-# END OF PRIVATE DATA
+. ./set-private-data.sh
 
 # If you don't use ssh-add to add your key to your active ssh-agent
 # you're going to be typing your passphrase an awful lot
@@ -26,7 +19,7 @@ gcloud config set project ${PROJ}
 export CLOUDSDK_COMPUTE_ZONE="us-central1-f"
 
 # set information for the instance we will create
-INSTANCENAME="my-multics"
+INSTANCENAME="my-multics-test"
 MACHINETYPE="f1-micro"
 IMAGEFAMILY="ubuntu-1804-lts"
 IMAGEPROJECT="ubuntu-os-cloud"
@@ -87,6 +80,7 @@ gcloud --format="value(networkInterfaces[0].networkIP)"  compute instances descr
 # dont return here until the OS is running, all packages have been installed and
 # Multics has started (and halted)
 gcloud compute scp configure.ini ${CLOUD_USERNAME}@${INSTANCENAME}: --project ${PROJ} --zone ${CLOUDSDK_COMPUTE_ZONE}
+
 gcloud compute scp 5-minute-multics.sh ${CLOUD_USERNAME}@${INSTANCENAME}: --project ${PROJ} --zone ${CLOUDSDK_COMPUTE_ZONE}
 gcloud compute ssh ${CLOUD_USERNAME}@${INSTANCENAME} --project ${PROJ} --zone ${CLOUDSDK_COMPUTE_ZONE} -- chmod +x 5-minute-multics.sh
 

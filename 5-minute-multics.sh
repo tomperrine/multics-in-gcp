@@ -82,8 +82,7 @@ cp ~/configure.ini .
 
 date
 
-# watch in amazement as Multics boots
-# Log in and run this, to start your customzed system
-##~/dps8m-code/src/dps8/dps8 MR12.6e_boot.ini
+# now start the system with the proper ini file for normal operations
+~/dps8m-code/src/dps8/dps8 MR12.6f_boot.ini
 
 
