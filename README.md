@@ -2,18 +2,23 @@
 
 Tools to build and launch Multics in Google Compute
 
-A Project to build and launch Multics in Google Compute, using the SIMH simulator, and the Multics MR12 release.
+A Project to build and launch Multics in Google Compute, using the
+SIMH dps8m simulator, and the Multics MR12 release.
 
-These scripts use Google gcloud command line SDK, the SIMH dps8m emulator, and Ubuntu to run the Multics operating system in the cloud.
+These scripts use Google gcloud command line SDK, the SIMH dps8m
+emulator, and Ubuntu to run the Multics operating system in the cloud.
 
 There are two scripts, both of which depend on the environment variables
 
-* launch-multics.sh - this creates the GCP instance, installs Ubuntu
-  and copies '5-minute-multics.sh' into the instance and starts it.
+* launch-multics.sh - This runs on your Mac or Linux computer (uses
+  bash). It creates the GCP instance, installs Ubuntu into the
+  instance, then copies '5-minute-multics.sh' into the instance and
+  starts it.
 
-* 5-minute-multics.sh - this script is copied into the GCP instance
+* 5-minute-multics.sh - This script is copied into the GCP instance
   and executed. It downloads and builds the "simh" emulator, downloads
-  the Multics disk image and configuration files
+  the Multics disk image and configuration files and boots Multics
+  *twice* (see below).
 
 # Instructions
 
@@ -28,19 +33,20 @@ There are two scripts, both of which depend on the environment variables
 
 Edit the "configure.ini" file to use your hostname, user names,
 etc. See FIXME for details. This script will be used by the emulator
-to create your Multics system.
+to configure your Multics system at "first boot".
 
 ## Set your private ENVIRONMENT variables
 
-Edit the "set-private-data.sh" script to set the needed ENVIRONMENT variables
+Edit the "set-private-data.sh" script to set the needed ENVIRONMENT
+variables. These are specific to your GCP account.
 
-### Private data - these are specific to your GCP account
-* CLOUD_USERNAME - needed since we're going to use Google "OS login"
-* PROJ - the name of your Google Compute project
+    CLOUD_USERNAME - needed since we're going to use Google "OS login"
+    PROJ - the name of your Google Compute project
 
 ## Set tuning parameters
 
-If desired, set the tuning parameters for the instance - location, size, etc. These are in the "launch-multics.sh" script
+If desired, set the tuning parameters for the instance - location,
+size, etc. These are in the "launch-multics.sh" script
 
 Here are the variables and the defaults:
 
@@ -57,8 +63,8 @@ Run the script:
     $ ./launch-multics.sh
 
 You will see the script create the GCP instance, install and update
-Ubuntu, and begin to install all the packages needed for "simh". Then
-it will actually install "simh", gather the Multics distibution and
+Ubuntu, and begin to install all the packages needed for "dps8m". Then
+it will actually install "dps8m", gather the Multics distibution and
 configuration data, and run Multics *twice*.
 
 Note that the system will start from the disk image provided with the
@@ -72,9 +78,9 @@ system name, and the first user account, which will be created as a
 privileged user in the project "SysAdmin". This all updates the disk
 image which keeps state between system boots.
 
-The second Multics boot uses the generic boot.init file, and depends
-on the system having been configured by the first run. This is the ini
-file to be used for all subsequent boots.
+The second Multics boot uses the generic ini file provided with the
+MR12 package, and depends on the system having been configured by the
+first run. This is the ini file to be used for all subsequent boots.
 
 # References
 
