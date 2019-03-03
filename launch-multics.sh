@@ -6,11 +6,11 @@
 . ../cloud-configuration/set-cloud-configuration.sh
 
 # launch the instance - assume it does NOT already exist
-echo "launching instance, patching (can take up to 10 minutes on a tiny)..."
-../create-simple-google-instance/create-instance.sh
 # on a tiny instance, this will take up to 10 minutes to create the instance,
 # install Ubutnu and apply all patches
 # it is faster on a larger instance
+echo "launching instance, patching (can take up to 10 minutes on a tiny)..."
+../create-simple-google-instance/create-instance.sh
 
 # put the main install script on the host and run it
 # also put the customized Multics configure.ini there for use at Multics boot time

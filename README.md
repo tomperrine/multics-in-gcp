@@ -20,6 +20,8 @@ There are two scripts, both of which depend on the environment variables
   the Multics disk image and configuration files and boots Multics
   *twice* (see below).
 
+
+
 # Instructions
 
 ## Establish your Google cloud account and a project
