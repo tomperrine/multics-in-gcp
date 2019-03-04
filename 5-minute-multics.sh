@@ -26,17 +26,19 @@ date
 
 # if you don't do this then a lot of the application packages won't install properly
 # beside, its always a good idea to update+upgrade immediately after installation
+# this SHOULD have been done during the base Ubuntu install, but in case
+# it has been a while since the instance was created...
 sudo apt-get --yes update
 sudo apt-get --yes upgrade
 
 # you will need these packages to build the emulator
 sudo apt-get --yes install build-essential libtool-bin m4 automake clang unzip
-# clang is needed to build dps8
+# biuld tools including make and clang et. al are needed to build dps8
 # unzip is needed to unzip the Multics image
-
 # install this libuv - not sure why, but it's from the Ubuntu readme
 # the system one would be
 # sudo apt-get install libuv1
+# but doesn't seem to work for SIMH/DPS8
 #
 cd
 git clone https://github.com/libuv/libuv.git
