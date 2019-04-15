@@ -1,0 +1,1 @@
+INSTANCENAME='test-multics'

@@ -5,6 +5,8 @@
 # set the needed enviropnment vars
 . ../cloud-configuration/set-cloud-configuration.sh
 
+. ./instance-name.sh
+
 # launch the instance - assume it does NOT already exist
 # on a tiny instance, this will take up to 10 minutes to create the instance,
 # install Ubutnu and apply all patches
